@@ -1,10 +1,19 @@
 import PyInstaller.__main__
-import customtkinter
 import os
 import platform
+import sys
 
-# Find customtkinter path to include its assets
-ctk_path = os.path.dirname(customtkinter.__file__)
+# Find customtkinter path manually to avoid importing it (which requires tkinter)
+ctk_path = None
+for path in sys.path:
+    possible_path = os.path.join(path, 'customtkinter')
+    if os.path.exists(possible_path):
+        ctk_path = possible_path
+        break
+
+if ctk_path is None:
+    print("Error: Could not find customtkinter package.")
+    sys.exit(1)
 
 # Determine separator for --add-data based on OS
 # Linux/Mac uses ':', Windows uses ';'
