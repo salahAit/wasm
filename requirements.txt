@@ -1,0 +1,4 @@
+customtkinter
+pymupdf
+python-barcode
+pyinstaller
