@@ -1,7 +1,7 @@
-import PyInstaller.__main__
+import subprocess
+import sys
 import os
 import platform
-import sys
 
 # Find customtkinter path manually to avoid importing it (which requires tkinter)
 ctk_path = None
@@ -20,7 +20,7 @@ if ctk_path is None:
 separator = ';' if platform.system() == 'Windows' else ':'
 
 # Build command arguments
-args = [
+pyinstaller_args = [
     'main.py',
     '--name=wasm',
     '--onefile',
@@ -31,7 +31,10 @@ args = [
     '--noconfirm',
 ]
 
-print(f"Building with arguments: {args}")
+print(f"Building with arguments: {pyinstaller_args}")
 
-# Run PyInstaller
-PyInstaller.__main__.run(args)
+# Run PyInstaller via subprocess
+cmd = [sys.executable, '-m', 'PyInstaller'] + pyinstaller_args
+print(f"Executing command: {' '.join(cmd)}")
+subprocess.check_call(cmd)
+
