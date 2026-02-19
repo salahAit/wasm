@@ -170,7 +170,39 @@ class App(ctk.CTk):
                     except Exception as e:
                         self.log(f"Database error: {e}")
                 
+                # Add to processed data list
+                processed_data.append({
+                    "filename": filename,
+                    "barcode": barcode_num,
+                    "status": "Success" if success else "Failed",
+                    "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                })
+                
                 self.update_progress(i + 1, total_files)
+            
+            # Export to Excel and JSON
+            if processed_data:
+                timestamp_str = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+                report_base_name = f"processing_report_{timestamp_str}"
+                
+                # JSON
+                json_path = os.path.join(processed_dir, f"{report_base_name}.json")
+                try:
+                    with open(json_path, 'w', encoding='utf-8') as f:
+                        json.dump(processed_data, f, indent=4, ensure_ascii=False)
+                    self.log(f"Report saved: {json_path}")
+                except Exception as e:
+                    self.log(f"Error saving JSON report: {e}")
+
+                # Excel
+                excel_path = os.path.join(processed_dir, f"{report_base_name}.xlsx")
+                try:
+                    df = pd.DataFrame(processed_data)
+                    df.to_excel(excel_path, index=False)
+                    self.log(f"Report saved: {excel_path}")
+                except Exception as e:
+                    self.log(f"Error saving Excel report: {e}")
+
             
             conn.close()
             self.log(f"Done! Processed {processed_count}/{total_files} files.")
