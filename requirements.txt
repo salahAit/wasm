@@ -2,3 +2,5 @@ customtkinter
 pymupdf
 python-barcode
 pyinstaller
+pandas
+openpyxl

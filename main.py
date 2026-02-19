@@ -9,7 +9,9 @@ import customtkinter as ctk
 import fitz  # PyMuPDF
 import barcode
 from barcode.writer import ImageWriter
-from PIL import Image
+import pandas as pd
+import json
+import csv
 
 # Configuration
 DB_NAME = "codeabar.db"
@@ -119,6 +121,7 @@ class App(ctk.CTk):
             os.makedirs(processed_dir, exist_ok=True)
             
             processed_count = 0
+            processed_data = []
             
             conn = sqlite3.connect(DB_NAME)
             cursor = conn.cursor()
