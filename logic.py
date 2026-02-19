@@ -26,7 +26,7 @@ def generate_barcode_image(barcode_num):
         saved_filename = my_barcode.save(temp_filename)
         return saved_filename
     except Exception as e:
-        print(f"Error generating barcode: {e}")
+        print(f"Error generating barcode for {barcode_num}: {e}")
         return None
 
 def stamp_pdf(input_path, output_path, barcode_image_path):
