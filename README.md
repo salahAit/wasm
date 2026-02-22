@@ -94,32 +94,38 @@ pyinstaller --noconfirm --onefile --windowed --name "Codeabar" --add-data "<path
    sudo apt-get install wine winetricks
    ```
 
-2. تثبيت المكتبات الأساسية لعمل بايثون على واين (مهم جداً لتجنب مشاكل `ucrtbase.dll`، قد يستغرق بعض الوقت):
+2. قم بإعداد Wine لمحاكاة نظام Windows 10 (ضروري لعمل Python 3.12+):
+
+   ```bash
+   winecfg -v win10
+   ```
+
+3. تثبيت المكتبات الأساسية لعمل بايثون على واين (مهم جداً لتجنب مشاكل `ucrtbase.dll`، قد يستغرق بعض الوقت):
 
    ```bash
    winetricks -q vcrun2015
    ```
 
-3. تنزيل وتثبيت بيئة واجهة سطر الأوامر لـ Python المخصصة لـ Windows داخل Wine:
+4. تنزيل وتثبيت بيئة واجهة سطر الأوامر لـ Python المخصصة لـ Windows داخل Wine:
 
    ```bash
    wget https://www.python.org/ftp/python/3.12.4/python-3.12.4-amd64.exe
    wine python-3.12.4-amd64.exe /quiet InstallAllUsers=1 PrependPath=1
    ```
 
-4. تثبيت المكتبات المطلوبة داخل بيئة Wine:
+5. تثبيت المكتبات المطلوبة داخل بيئة Wine:
 
    ```bash
    wine python -m pip install -r requirements.txt
    ```
 
-5. تشغيل سكربت البناء داخل بيئة Wine:
+6. تشغيل سكربت البناء داخل بيئة Wine:
 
    ```bash
    wine python build.py
    ```
 
-6. ستجد الملف النهائي في مجلد `dist/wasm.exe`.
+7. ستجد الملف النهائي في مجلد `dist/wasm.exe`.
 
 *حلول أخرى:*
 

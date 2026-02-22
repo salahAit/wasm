@@ -29,6 +29,15 @@ pyinstaller_args = [
     '--icon=wasm.ico',
     '--clean',
     '--noconfirm',
+    # Hidden imports that PyInstaller may miss
+    '--hidden-import=PIL',
+    '--hidden-import=PIL.Image',
+    '--hidden-import=PIL.ImageDraw',
+    '--hidden-import=PIL.ImageFont',
+    '--hidden-import=barcode',
+    '--hidden-import=barcode.codex',
+    '--hidden-import=barcode.code128',
+    '--hidden-import=barcode.writer',
 ]
 
 print(f"Building with arguments: {pyinstaller_args}")
